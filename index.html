@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Código Oficial da Pelada</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        darkbg: '#000000',
+                        darkcard: '#0A0A0A',
+                        darkborder: '#1A1A1A',
+                        darkaccent: '#10B981', // Emerald
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #000000;
+        }
+        /* Custom scrollbar ultra minimal */
+        ::-webkit-scrollbar {
+            width: 4px;
+            height: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #000000;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #222222;
+            border-radius: 2px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #10B981;
+        }
+        .rule-item {
+            transition: border-color 0.2s ease;
+        }
+        .rule-item:hover {
+            border-color: #262626;
+        }
+    </style>
+</head>
+<body class="text-zinc-400 min-h-screen antialiased flex flex-col selection:bg-emerald-500 selection:text-black">
+
+    <!-- Header Minimalista -->
+    <header class="sticky top-0 z-40 bg-black/80 backdrop-blur-md border-b border-zinc-900/80 transition-all duration-300">
+        <div class="max-w-4xl mx-auto px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+                <span class="text-emerald-500 text-lg">⚽</span>
+                <div>
+                    <h1 class="text-sm font-semibold tracking-wider uppercase text-white">
+                        Código Oficial da Pelada
+                    </h1>
+                    <p class="text-[11px] text-zinc-500 tracking-tight">Manual Consensual de Regras & Diretrizes</p>
+                </div>
+            </div>
+            
+            <!-- Quick Search -->
+            <div class="w-full sm:w-auto">
+                <div class="relative">
+                    <input type="text" id="searchInput" oninput="filterRules()" placeholder="Filtrar regra..." class="w-full sm:w-48 pl-3 pr-8 py-1.5 text-xs bg-zinc-950 border border-zinc-900 rounded-md text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-emerald-500 focus:ring-0 transition-all">
+                    <span class="absolute inset-y-0 right-0 flex items-center pr-2.5 pointer-events-none">
+                        <svg class="w-3.5 h-3.5 text-zinc-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="flex-grow max-w-4xl w-full mx-auto px-6 py-12 flex flex-col md:flex-row gap-12">
+        
+        <!-- Sidebar Navigation (Desktop only) -->
+        <aside class="hidden md:block w-48 shrink-0">
+            <div class="sticky top-28 space-y-8">
+                <div>
+                    <h3 class="text-[10px] font-bold text-zinc-600 uppercase tracking-widest mb-4">Sumário</h3>
+                    <nav class="space-y-3">
+                        <a href="#excecoes" onclick="scrollToSection('excecoes')" class="block text-xs font-medium text-emerald-500 hover:text-emerald-400 transition-colors">
+                            Exceções Principais
+                        </a>
+                        <div class="pl-3 py-1 space-y-2 border-l border-zinc-900 ml-1">
+                            <a href="#regra-1" class="block text-[11px] text-zinc-500 hover:text-zinc-200 transition-colors">1. Impedimento</a>
+                            <a href="#regra-2" class="block text-[11px] text-zinc-500 hover:text-zinc-200 transition-colors">2. Recuo Lateral</a>
+                            <a href="#regra-3" class="block text-[11px] text-zinc-500 hover:text-zinc-200 transition-colors">3. Dois Toques</a>
+                            <a href="#regra-4" class="block text-[11px] text-zinc-500 hover:text-zinc-200 transition-colors">4. Faltas na Área</a>
+                            <a href="#regra-5" class="block text-[11px] text-zinc-500 hover:text-zinc-200 transition-colors">5. Auto-Arbitragem</a>
+                            <a href="#regra-6" class="block text-[11px] text-zinc-500 hover:text-zinc-200 transition-colors">6. Bola na Mão</a>
+                            <a href="#regra-7" class="block text-[11px] text-zinc-500 hover:text-zinc-200 transition-colors">7. Antidesportiva</a>
+                            <a href="#regra-8" class="block text-[11px] text-zinc-500 hover:text-zinc-200 transition-colors">8. Tiro de Meta</a>
+                            <a href="#regra-9" class="block text-[11px] text-zinc-500 hover:text-zinc-200 transition-colors">9. Gol Olímpico</a>
+                            <a href="#regra-10" class="block text-[11px] text-zinc-500 hover:text-zinc-200 transition-colors">10. Saída Rápida</a>
+                        </div>
+                        <a href="#fairplay" onclick="scrollToSection('fairplay')" class="block text-xs font-medium text-zinc-500 hover:text-zinc-200 transition-colors">
+                            🤝 Espírito & Fair Play
+                        </a>
+                        <a href="#financeiro" onclick="scrollToSection('financeiro')" class="block text-xs font-medium text-zinc-500 hover:text-zinc-200 transition-colors">
+                            💰 Regra de Ouro (Finanças)
+                        </a>
+                    </nav>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Document Content -->
+        <section class="flex-1 space-y-16">
+            
+            <!-- Intro / Header Textual -->
+            <div class="space-y-4 border-b border-zinc-900 pb-10">
+                <span class="text-[10px] uppercase tracking-widest font-bold text-zinc-600">Regulamento Geral</span>
+                <h2 class="text-2xl font-bold text-white tracking-tight">O Código Oficial</h2>
+                <p class="text-xs text-zinc-500 leading-relaxed max-w-xl">
+                    Este documento estabelece as regras oficiais consensuais para a pelada entre amigos. De maneira geral, <strong class="text-zinc-300 font-medium">seguimos as diretrizes oficiais do futebol profissional</strong>, com exceção das adaptações detalhadas abaixo para garantir a fluidez, a diversão e a paz em campo.
+                </p>
+            </div>
+
+            <!-- Toast Notification -->
+            <div id="toast" class="fixed bottom-6 right-6 z-50 bg-zinc-950 border border-emerald-500/30 text-emerald-400 px-4 py-2.5 rounded-md shadow-2xl flex items-center gap-2 translate-y-10 opacity-0 transition-all duration-300 pointer-events-none text-xs">
+                <span>📋</span>
+                <span id="toastMessage">Regra copiada para envio!</span>
+            </div>
+
+            <!-- SECTION 1: AS GRANDES EXCEÇÕES -->
+            <div id="excecoes" class="space-y-8">
+                <div class="border-b border-zinc-900 pb-2">
+                    <h3 class="text-xs font-bold uppercase tracking-widest text-zinc-500">I. As Grandes Exceções</h3>
+                </div>
+
+                <div class="space-y-8" id="rulesGrid">
+                    
+                    <!-- Regra 1 -->
+                    <div id="regra-1" class="rule-item border-l border-zinc-900 hover:border-zinc-800 pl-6 py-2 space-y-3 relative group">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[10px] font-bold text-emerald-500/80 tracking-widest uppercase">Regra 1</span>
+                            <button onclick="copyRule('Regra 1: Sem Impedimento. Não existe a regra do impedimento. O atacante pode ficar posicionado onde preferir, inclusive na banheira.')" class="opacity-0 group-hover:opacity-100 text-[10px] text-zinc-600 hover:text-emerald-400 transition-all" title="Copiar texto">
+                                Copiar
+                            </button>
+                        </div>
+                        <h4 class="text-sm font-semibold text-zinc-100">Sem Impedimento (A Lei do "Banhista")</h4>
+                        <p class="text-xs text-zinc-400 leading-relaxed">
+                            Não existe a regra do impedimento. O atacante pode ficar posicionado onde preferir, inclusive na banheira (atrás da linha de defensores).
+                        </p>
+                        <p class="text-[11px] text-zinc-550 italic">
+                            <strong>Objetivo:</strong> Evitar discussões intermináveis de posicionamento na ausência de assistentes (bandeirinhas) ou VAR.
+                        </p>
+                    </div>
+
+                    <!-- Regra 2 -->
+                    <div id="regra-2" class="rule-item border-l border-zinc-900 hover:border-zinc-800 pl-6 py-2 space-y-3 relative group">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[10px] font-bold text-emerald-500/80 tracking-widest uppercase">Regra 2</span>
+                            <button onclick="copyRule('Regra 2: Recuo de Lateral para o Goleiro. Se cobrar arremesso lateral recuando a bola diretamente para o seu goleiro, ele está autorizado a segurar com as mãos na área.')" class="opacity-0 group-hover:opacity-100 text-[10px] text-zinc-600 hover:text-emerald-400 transition-all" title="Copiar texto">
+                                Copiar
+                            </button>
+                        </div>
+                        <h4 class="text-sm font-semibold text-zinc-100">Recuo de Lateral para o Goleiro</h4>
+                        <p class="text-xs text-zinc-400 leading-relaxed">
+                            Se um jogador cobrar um arremesso lateral recuando a bola diretamente para o seu próprio goleiro, <strong>o goleiro está autorizado a segurar a bola com as mãos</strong> dentro da sua área.
+                        </p>
+                        <p class="text-[11px] text-zinc-550 italic">
+                            <strong>Nota:</strong> Os recuos com o pé de bola rolando continuam seguindo a regra profissional (apenas pés).
+                        </p>
+                    </div>
+
+                    <!-- Regra 3 -->
+                    <div id="regra-3" class="rule-item border-l border-zinc-900 hover:border-zinc-800 pl-6 py-2 space-y-3 relative group">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[10px] font-bold text-emerald-500/80 tracking-widest uppercase">Regra 3</span>
+                            <button onclick="copyRule('Regra 3: Faltas de Dois Toques. Todas as faltas comuns são cobradas em dois toques, independente da distância. A única cobrança direta ao gol é o Pênalti.')" class="opacity-0 group-hover:opacity-100 text-[10px] text-zinc-600 hover:text-emerald-400 transition-all" title="Copiar texto">
+                                Copiar
+                            </button>
+                        </div>
+                        <h4 class="text-sm font-semibold text-zinc-100">Faltas de "Dois Toques" (Tiros Livres Indiretos)</h4>
+                        <p class="text-xs text-zinc-400 leading-relaxed">
+                            Não existem faltas diretas no campo de jogo. <strong>Todas as faltas comuns são cobradas em dois toques (tiro livre indireto)</strong>, independentemente da distância do gol.
+                        </p>
+                        <p class="text-[11px] text-rose-500/80 font-medium">
+                            <strong>Exceção:</strong> A única cobrança de chute direto ao gol permitida a partir de uma infração é o <strong>Pênalti</strong>.
+                        </p>
+                    </div>
+
+                    <!-- Regra 4 -->
+                    <div id="regra-4" class="rule-item border-l border-zinc-900 hover:border-zinc-800 pl-6 py-2 space-y-3 relative group">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[10px] font-bold text-emerald-500/80 tracking-widest uppercase">Regra 4</span>
+                            <button onclick="copyRule('Regra 4: Faltas Comuns na Área. Faltas comuns na grande área defensiva não são pênalti. Serão cobradas em dois toques no local da infração.')" class="opacity-0 group-hover:opacity-100 text-[10px] text-zinc-600 hover:text-emerald-400 transition-all" title="Copiar texto">
+                                Copiar
+                            </button>
+                        </div>
+                        <h4 class="text-sm font-semibold text-zinc-100">Faltas Comuns na Área Não São Pênaltis</h4>
+                        <p class="text-xs text-zinc-400 leading-relaxed">
+                            Faltas leves ou comuns cometidas dentro da grande área defensiva (como uma disputa de ombro um pouco mais ríspida ou tromba leve) <strong>não serão penalizadas com pênalti</strong>.
+                        </p>
+                        <p class="text-[11px] text-zinc-550 italic">
+                            <strong>Execução:</strong> Essas infrações são cobradas como tiro livre indireto (dois toques) exatamente no local de contato.
+                        </p>
+                    </div>
+
+                    <!-- Regra 5 -->
+                    <div id="regra-5" class="rule-item border-l border-zinc-900 hover:border-zinc-800 pl-6 py-2 space-y-3 relative group">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[10px] font-bold text-emerald-500/80 tracking-widest uppercase">Regra 5</span>
+                            <button onclick="copyRule('Regra 5: Auto-Arbitragem (Quem Sofre, Pede) e Lei da Vantagem. Somente quem sofreu o contato pode pedir a falta. Se o jogador preferir continuar e não pedir, o jogo segue normalmente.')" class="opacity-0 group-hover:opacity-100 text-[10px] text-zinc-600 hover:text-emerald-400 transition-all" title="Copiar texto">
+                                Copiar
+                            </button>
+                        </div>
+                        <h4 class="text-sm font-semibold text-zinc-100">Auto-Arbitragem: "Quem Sofre, Pede"</h4>
+                        <p class="text-xs text-zinc-400 leading-relaxed">
+                            Como não temos um árbitro oficial em campo, adotamos o sistema de honestidade e respeito mútuo:
+                        </p>
+                        <ul class="space-y-1.5 text-xs text-zinc-450 list-disc pl-5">
+                            <li><strong>Apenas quem sofreu a falta tem o direito de solicitá-la.</strong> Se ele pedir, está automaticamente concedida (sem discussões).</li>
+                            <li>Jogadores de fora ou companheiros de equipe não podem pedir falta por terceiros.</li>
+                            <li><strong>A Lei da Vantagem:</strong> O jogador que sofreu o contato tem total autonomia para <span class="text-emerald-500 font-medium">não pedir a falta</span> caso sinta que a jogada continua vantajosa (ex: posse de bola ou chance clara de gol). Se decidir seguir, o jogo flui normalmente.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Regra 6 -->
+                    <div id="regra-6" class="rule-item border-l border-zinc-900 hover:border-zinc-800 pl-6 py-2 space-y-3 relative group">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[10px] font-bold text-emerald-500/80 tracking-widest uppercase">Regra 6</span>
+                            <button onclick="copyRule('Regra 6: Bola na Mão é Sempre Falta. Qualquer contato da bola com a mão/braço de um jogador de linha é falta. Se bater na do defensor e entrar, é gol. Se bater na do atacante e entrar, é anulado.')" class="opacity-0 group-hover:opacity-100 text-[10px] text-zinc-600 hover:text-emerald-400 transition-all" title="Copiar text">
+                                Copiar
+                            </button>
+                        </div>
+                        <h4 class="text-sm font-semibold text-zinc-100">Bola na Mão é Sempre Falta (Vantagem no Gol)</h4>
+                        <p class="text-xs text-zinc-400 leading-relaxed">
+                            Qualquer contato da bola com a mão ou braço de um jogador de linha é considerado infração, <strong>independentemente da intenção, da posição do braço ou de ser braço de apoio</strong>. Encostou, o jogo para e cobra-se dois toques.
+                        </p>
+                        
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+                            <div class="bg-zinc-950/50 border border-zinc-900 p-3 rounded-md">
+                                <span class="text-[11px] font-semibold text-emerald-400">Defesa (Gol do Ataque):</span>
+                                <p class="text-[11px] text-zinc-500 mt-0.5">Se a bola bater na mão do defensor e entrar diretamente, <strong>o gol é válido</strong> (lei da vantagem aplicada).</p>
+                            </div>
+                            <div class="bg-zinc-950/50 border border-zinc-900 p-3 rounded-md">
+                                <span class="text-[11px] font-semibold text-rose-500">Ataque (Gol do Ataque):</span>
+                                <p class="text-[11px] text-zinc-500 mt-0.5">Se bater na mão/braço de um atacante (mesmo involuntário) e entrar, <strong>o gol é anulado</strong>.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Regra 7 -->
+                    <div id="regra-7" class="rule-item border-l border-zinc-900 hover:border-zinc-800 pl-6 py-2 space-y-3 relative group">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[10px] font-bold text-emerald-500/80 tracking-widest uppercase">Regra 7</span>
+                            <button onclick="copyRule('Regra 7: Conduta Antidesportiva = Pênalti. Qualquer infração antidesportiva de propósito (como colocar a mão para evitar gol ou puxar por trás em contra-ataque) é penalizada com pênalti.')" class="opacity-0 group-hover:opacity-100 text-[10px] text-zinc-600 hover:text-emerald-400 transition-all" title="Copiar texto">
+                                Copiar
+                            </button>
+                        </div>
+                        <h4 class="text-sm font-semibold text-zinc-100">Conduta Antidesportiva = Pênalti</h4>
+                        <p class="text-xs text-zinc-400 leading-relaxed">
+                            Qualquer infração considerada de caráter antidesportivo será penalizada com <strong>pênalti</strong> a favor do time oposto, independente do ponto do campo em que ocorra.
+                        </p>
+                        <p class="text-[11px] text-zinc-550 italic">
+                            <strong>Exemplos:</strong> Mão na bola proposital para impedir gol direto ou agarrar o adversário por trás em contra-ataques táticos claros.
+                        </p>
+                    </div>
+
+                    <!-- Regra 8 -->
+                    <div id="regra-8" class="rule-item border-l border-zinc-900 hover:border-zinc-800 pl-6 py-2 space-y-3 relative group">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[10px] font-bold text-emerald-500/80 tracking-widest uppercase">Regra 8</span>
+                            <button onclick="copyRule('Regra 8: Tiro de Meta Exclusivo do Goleiro. Sempre cobrado com as mãos.')" class="opacity-0 group-hover:opacity-100 text-[10px] text-zinc-600 hover:text-emerald-400 transition-all" title="Copiar texto">
+                                Copiar
+                            </button>
+                        </div>
+                        <h4 class="text-sm font-semibold text-zinc-100">Tiro de Meta do Goleiro e com as Mãos</h4>
+                        <p class="text-xs text-zinc-400 leading-relaxed">
+                            O tiro de meta deve ser <strong>sempre cobrado pelo goleiro e utilizando estritamente as mãos</strong> para recolocar a bola em jogo. Jogadores de linha não cobram o tiro de meta com o pé.
+                        </p>
+                    </div>
+
+                    <!-- Regra 9 -->
+                    <div id="regra-9" class="rule-item border-l border-zinc-900 hover:border-zinc-800 pl-6 py-2 space-y-3 relative group">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[10px] font-bold text-emerald-500/80 tracking-widest uppercase">Regra 9</span>
+                            <button onclick="copyRule('Regra 9: Gol Olímpico é Válido. Cobrança de escanteio pode ir direto para o gol.')" class="opacity-0 group-hover:opacity-100 text-[10px] text-zinc-600 hover:text-emerald-400 transition-all" title="Copiar texto">
+                                Copiar
+                            </button>
+                        </div>
+                        <h4 class="text-sm font-semibold text-zinc-100">Gol Olímpico é Válido (Escanteio Direto)</h4>
+                        <p class="text-xs text-zinc-400 leading-relaxed">
+                            Assim como nas regras oficiais do futebol profissional, a cobrança de escanteio pode resultar em gol direto (gol olímpico) sem necessidade de desvio no meio do caminho.
+                        </p>
+                    </div>
+
+                    <!-- Regra 10 -->
+                    <div id="regra-10" class="rule-item border-l border-zinc-900 hover:border-zinc-800 pl-6 py-2 space-y-3 relative group">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[10px] font-bold text-emerald-500/80 tracking-widest uppercase">Regra 10</span>
+                            <button onclick="copyRule('Regra 10: Saída de Bola Rápida. Não é necessário esperar os adversários voltarem para suas metades do campo para reiniciar o jogo após sofrer gol.')" class="opacity-0 group-hover:opacity-100 text-[10px] text-zinc-600 hover:text-emerald-400 transition-all" title="Copiar texto">
+                                Copiar
+                            </button>
+                        </div>
+                        <h4 class="text-sm font-semibold text-zinc-100">Saída de Bola Rápida (Não Espera Voltar)</h4>
+                        <p class="text-xs text-zinc-400 leading-relaxed">
+                            Logo após sofrer um gol, a equipe pode reiniciar o jogo no centro do campo de forma imediata. <strong>Não é necessário esperar que os adversários retornem para as suas metades defensivas do campo.</strong>
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- SECTION 2: FAIR PLAY -->
+            <div id="fairplay" class="space-y-6 pt-6 border-t border-zinc-900">
+                <div class="border-b border-zinc-900 pb-2">
+                    <h3 class="text-xs font-bold uppercase tracking-widest text-zinc-500">II. Espírito & Fair Play</h3>
+                </div>
+                <p class="text-xs text-zinc-400 leading-relaxed">
+                    Lembre-se: o objetivo principal da nossa pelada é a diversão, a prática de exercícios e a resenha após o apito final. O respeito ao adversário deve sempre prevalecer sobre a vontade de vencer a qualquer custo.
+                </p>
+
+                <!-- Atendimento e Bom Senso Card -->
+                <div class="bg-zinc-950 border border-zinc-900 p-5 rounded-lg space-y-2.5">
+                    <h4 class="text-xs font-semibold text-white flex items-center gap-2">
+                        <span>🚑</span> Atendimento e Bom Senso (Jogador Caído)
+                    </h4>
+                    <p class="text-xs text-zinc-400 leading-relaxed">
+                        Em caso de dividida forte, choque ou queda em que algum jogador demonstre estar machucado ou fique caído no chão, <strong>todos devem ter o bom senso de parar o jogo imediatamente para o atendimento</strong>.
+                    </p>
+                    <p class="text-[11px] text-zinc-500 leading-relaxed">
+                        <strong>Prioridade Absoluta:</strong> A integridade física e o bem-estar dos amigos estão sempre acima de qualquer jogada de ataque, chance de gol ou vantagem esportiva. Não importa quem está com a posse de bola.
+                    </p>
+                    <p class="text-[11px] text-emerald-500/90 font-medium">
+                        <strong>O Reinício (Fair Play):</strong> Resolvida a situação, a bola deve ser devolvida de forma amistosa para a equipe que detinha a posse no exato momento da paralisação.
+                    </p>
+                </div>
+            </div>
+
+            <!-- SECTION 3: COMPROMISSO FINANCEIRO -->
+            <div id="financeiro" class="space-y-6 pt-6 border-t border-zinc-900">
+                <div class="border-b border-zinc-900 pb-2">
+                    <h3 class="text-xs font-bold uppercase tracking-widest text-zinc-500">III. Presença e Compromisso Financeiro</h3>
+                </div>
+                
+                <p class="text-xs text-zinc-400 leading-relaxed">
+                    Para manter a organização financeira e garantir que os custos da quadra/campo sejam cobertos sem desfalcar o grupo, adotamos a seguinte norma de responsabilidade:
+                </p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="bg-zinc-950 border border-zinc-900 p-5 rounded-lg space-y-2">
+                        <h4 class="text-xs font-semibold text-rose-500 uppercase tracking-wider">Falta sem Aviso / Cancelamento Tardio</h4>
+                        <p class="text-xs text-zinc-400 leading-relaxed">
+                            O jogador que colocar o nome na lista de presença e não comparecer, <strong>OU</strong> que retirar seu nome após as <strong class="text-zinc-200">19:00 horas</strong> do dia da pelada, estará sujeito à cobrança automática.
+                        </p>
+                    </div>
+
+                    <div class="bg-zinc-950 border border-zinc-900 p-5 rounded-lg flex flex-col justify-between">
+                        <div>
+                            <h4 class="text-xs font-semibold text-white uppercase tracking-wider">Multa de Ausência</h4>
+                            <p class="text-[11px] text-zinc-500 leading-relaxed">
+                                O jogador terá que realizar o pagamento do valor integral da diária mesmo sem ter comparecido.
+                            </p>
+                        </div>
+                        <div class="text-xl font-bold text-white mt-4 flex items-baseline gap-1">
+                            R$ 15,00
+                            <span class="text-[10px] text-zinc-500 font-normal">/ diária</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <!-- Footer Minimalista -->
+    <footer class="border-t border-zinc-950 bg-black py-12">
+        <div class="max-w-4xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4 text-[11px] text-zinc-600">
+            <p>© 2026 Pelada dos Amigos. Todos os direitos de fair play reservados.</p>
+            <p class="tracking-tight">Consulte as regras rapidamente a qualquer momento na beira de campo.</p>
+        </div>
+    </footer>
+
+    <!-- JS Logic Minimalista -->
+    <script>
+        // Smooth scrolling helper
+        function scrollToSection(id) {
+            const el = document.getElementById(id);
+            if (el) {
+                el.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Live Filtering Rules
+        function filterRules() {
+            const query = document.getElementById('searchInput').value.toLowerCase().trim();
+            const cards = document.querySelectorAll('.rule-item');
+            
+            cards.forEach(card => {
+                const title = card.querySelector('h4').textContent.toLowerCase();
+                const text = card.querySelector('p').textContent.toLowerCase();
+                const notes = card.querySelector('p:last-child') ? card.querySelector('p:last-child').textContent.toLowerCase() : '';
+                
+                if (title.includes(query) || text.includes(query) || notes.includes(query)) {
+                    card.style.display = 'block';
+                    if (query !== '') {
+                        card.style.borderColor = '#10B981'; // Emerald highlight border
+                    } else {
+                        card.style.borderColor = '';
+                    }
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Copy individual rule helper
+        function copyRule(text) {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            textArea.style.position = "fixed";
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            try {
+                document.execCommand('copy');
+                showToast("Regra copiada para o WhatsApp!");
+            } catch (err) {
+                showToast("Erro ao copiar. Selecione manualmente.");
+            }
+            document.body.removeChild(textArea);
+        }
+
+        // Custom Toast system
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toastMessage');
+            toastMessage.textContent = message;
+            toast.classList.remove('translate-y-10', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+            
+            setTimeout(() => {
+                toast.classList.add('translate-y-10', 'opacity-0');
+                toast.classList.remove('translate-y-0', 'opacity-100');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
